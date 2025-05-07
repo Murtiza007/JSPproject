@@ -6,7 +6,7 @@ public class login {
     private String username;
     private String password;
     private int userID;
-    private String message;
+    private String message="";
 
     public login() {
     }

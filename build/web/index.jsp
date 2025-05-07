@@ -6,7 +6,7 @@
             <table cellpadding="5" cellspacing="5">
                 <tr>
                     <td><h3>LOGIN PANEL</h3></td>
-                    <td><=% ></td>  
+                    <td><%=user.getMessage()%></td>  
                 </tr>
                  <tr>
                     <td>Enter Username</td>

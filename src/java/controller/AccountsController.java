@@ -20,7 +20,7 @@ public class AccountsController {
                 return true;
             }
             else{
-            this.message="Incorrect Password";
+            user.setMessage("incorrect");
                 return false;
             }   
         }
