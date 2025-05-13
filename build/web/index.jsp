@@ -2,7 +2,9 @@
 <%@include file="includes/login.jsp" %>
 <%@include file="views/header.jsp" %>
       
-        <form method="POST" action="">
+
+
+        
             <table cellpadding="5" cellspacing="5">
                 <tr>
                     <td><h3>LOGIN PANEL</h3></td>
@@ -10,17 +12,19 @@
                 </tr>
                  <tr>
                     <td>Enter Username</td>
-                    <td><input type="text" name="txtUser"></td> 
+                    <td><input type="text" id="txtUser"></td> 
                 </tr>
                  <tr>
                     <td>Enter Password</td>
-                    <td><input type="password" name="txtPass"></td> 
+                    <td><input type="password" id="txtPass"></td> 
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" value="Login" name="btnSubmit"></td> 
+                    <td><input type="button" value="Login"  name="btnSubmit" id="btnSubmit"></td> 
                 </tr>
             </table>
-        </form>
+        
+
+
 <%@include file="views/footer.jsp" %>
  

@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controller;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.login;
 
 public class AccountsController {
@@ -13,10 +17,15 @@ public class AccountsController {
     }
     String message="";
    
-    public boolean login(login user){
+    public boolean login(login user,HttpServletRequest request,HttpServletResponse response){
         if(isValid(user)){
             if(isAuthentic(user)){
-                
+                HttpSession session = request.getSession();
+            session.setAttribute("user1", user.getUsername());
+            Cookie cookie=new Cookie("AUthCookie",user.getUsername());
+            cookie.setMaxAge(60*60*24);
+            cookie.isHttpOnly();
+            response.addCookie(cookie);
                 return true;
             }
             else{
@@ -28,6 +37,7 @@ public class AccountsController {
         user.setMessage("Please enter all fields");
         return false;
         }
+         
 
     }
     

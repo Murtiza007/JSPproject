@@ -7,9 +7,9 @@
         AccountsController ac=new AccountsController();
         user.setUsername(request.getParameter("txtUser"));
         user.setPassword(request.getParameter("txtPass"));
-        if(ac.login(user)){
+        if(ac.login(user,request,response)){
         
-       response.sendRedirect("profile");
+          response.sendRedirect("profile");
     }
     }
 
