@@ -17,25 +17,21 @@ public class AccountsController {
     }
     String message="";
    
-    public boolean login(login user,HttpServletRequest request,HttpServletResponse response){
+    public void login(login user){
         if(isValid(user)){
             if(isAuthentic(user)){
-                HttpSession session = request.getSession();
-            session.setAttribute("user1", user.getUsername());
-            Cookie cookie=new Cookie("AUthCookie",user.getUsername());
-            cookie.setMaxAge(60*60*24);
-            cookie.isHttpOnly();
-            response.addCookie(cookie);
-                return true;
+                
+                //user.setMessage("SUCCESS");
+                Authorize(user);
             }
             else{
-            user.setMessage("incorrect");
-                return false;
+           // user.setMessage("incorrect");
+                
             }   
         }
         else{ 
-        user.setMessage("Please enter all fields");
-        return false;
+      //  user.setMessage("Please enter all fields");
+        
         }
          
 
@@ -48,5 +44,13 @@ public class AccountsController {
     private boolean isAuthentic(login user){
         return(user.getUsername().equals("moin")&& user.getPassword().equals("123"));
 
+    }
+    private void Authorize(login user){
+        if(user.getRememberMe().equals("true")){
+         
+        }
+        else{
+       
+        }
     }
 }

@@ -7,6 +7,15 @@ public class login {
     private String password;
     private int userID;
     private String message="";
+    private String RememberMe;
+
+    public String getRememberMe() {
+        return RememberMe;
+    }
+
+    public void setRememberMe(String RememberMe) {
+        this.RememberMe = RememberMe;
+    }
 
     public login() {
     }
