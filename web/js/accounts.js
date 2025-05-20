@@ -31,3 +31,10 @@ $.ajax({
               
 });
         
+$('#btnsignup').click(function(){
+    var name=$('#txtFistName').val();
+    
+    console.log("tset");
+    alert(name);
+    
+})
