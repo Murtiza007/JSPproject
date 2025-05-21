@@ -38,17 +38,7 @@
         </tr>
     </table>
 
-<%
-    
-    if(request.getMethod().equals("POST")){
-   String user= request.getParameter("username");
-   String pass= request.getParameter("password");
-   String email= request.getParameter("txtEmail");
-   
-    out.print(user+pass+email);
-    }
 
-%>
 
 <%@include file="views/footer.jsp" %>
 

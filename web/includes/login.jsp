@@ -9,7 +9,10 @@
     
     AccountsController ac=new AccountsController();
     ac.login(user);
-   
+   if(user.getMessage().equals("SUCCESS")){
+    
+    
+    }
    
 
     

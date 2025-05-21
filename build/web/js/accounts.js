@@ -32,9 +32,24 @@ $.ajax({
 });
         
 $('#btnsignup').click(function(){
-    var name=$('#txtFistName').val();
+    var user={
+        'FName':$('#txtFistName').val(),
+        'LName':$('#txtLastName').val(),
+        'UName':$('#txtNewUser').val(),
+        'PASS':$('#txtNewPass').val(),
+        'email':$('#txtEmail').val(),
+        'Phone':$('#txtNumber').val(),
+        
+        
+    }
+    user=JSON.stringify(user)
+    alert(user);
     
-    console.log("tset");
-    alert(name);
+})
+
+$('#anchor').click(function(){
+  
+  $('#logindiv').hide();
+    $('#signUpdiv').fadeIn(1000);
     
 })

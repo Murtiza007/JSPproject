@@ -2,8 +2,11 @@
 
 <%@include file="views/header.jsp" %>
 
-
-        
+<div id="signUpdiv" style="display: none">
+    <%@include file="signup.jsp" %>
+    
+</div>
+        <div id="logindiv">
             <table cellpadding="5" cellspacing="5">
                 <tr>
                     <td><h3>LOGIN PANEL</h3></td>
@@ -26,8 +29,13 @@
                    <td>Stay logged in <input type='checkbox' id='rememberMe'></td>
                  </tr>
             </table>
+            
         
-
+        <div id="registerDiv">
+            <a> forgot Password </a> &nbsp;      &nbsp;  &nbsp;
+            <a id="anchor" > no account? || Sign up</a><!-- comment -->
+        </div>
+</div>
 
 <%@include file="views/footer.jsp" %>
  
