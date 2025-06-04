@@ -1,14 +1,11 @@
 $('#btnSubmit').click(function(){
-    var username=$('#txtUser').val();
-    var pass=$('#txtPass').val();
-  
-
+    
 $.ajax({
     type:'POST',
     url:'includes/login.jsp',
  data:{
-     Username:username,
-     Password:pass,
+     Username:$('#txtUser').val(),
+     Password:$('#txtPass').val(),
      Remember:$('#rememberMe').is(':checked')
  },
   success: function(result){
@@ -18,8 +15,7 @@ $.ajax({
         document.location="profile.jsp";
     }
     else{
-  
-     $('#message').html(result);
+        $('#Message').html(result);
     }
   },
   error:function(){
@@ -30,26 +26,67 @@ $.ajax({
 
               
 });
-        
-$('#btnsignup').click(function(){
-    var user={
-        'FName':$('#txtFistName').val(),
-        'LName':$('#txtLastName').val(),
-        'UName':$('#txtNewUser').val(),
-        'PASS':$('#txtNewPass').val(),
-        'email':$('#txtEmail').val(),
-        'Phone':$('#txtNumber').val(),
-        
-        
-    }
-    user=JSON.stringify(user)
-    alert(user);
-    
-})
+$('#btnsignup').click(function () {
+    var FName = $('#txtFistName').val();
+    var LName = $('#txtLastName').val();
+    var UName = $('#txtNewUser').val();
+    var PASS = $('#txtNewPass').val();
+    var email = $('#txtEmail').val();
+    var Phone = $('#txtNumber').val();
 
-$('#anchor').click(function(){
-  
+    if (FName === "" || LName === "" || UName === "" || PASS === "" || email === "" || Phone === "") {
+        $('#message').html("Please fill all fields");
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'includes/signup.jsp',
+        data: {
+            FName:FName,
+            LName:LName,
+            UName:UName,
+            PASS:PASS,
+            email:email,
+            Phone:Phone
+            
+        },
+        success: function (result) {
+            
+             
+            $('#message').html(result);
+            if(result=="User Registered"){
+                 $('#message').html(result+ " <a href='index.jsp'>Login here now!</a>")
+            }
+            
+            
+            $('#txtFistName').val('');
+            $('#txtLastName').val('');
+            $('#txtNewUser').val('');
+            $('#txtNewPass').val('');
+            $('#txtEmail').val('');
+            $('#txtNumber').val('');
+            $('#message').val('');
+             
+           
+            
+            
+            
+            
+             
+            
+        },
+        error: function (error) {
+             alert(error);
+        }
+    });
+});
+$('#anchorSign').click(function(){
   $('#logindiv').hide();
     $('#signUpdiv').fadeIn(1000);
-    
+      
+})
+$('#anchorLogin').click(function(){
+    $('#signUpdiv').hide();
+   
 })

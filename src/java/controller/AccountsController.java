@@ -5,21 +5,35 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import model.login;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import model.Users;
+import model.dbContext;
 
 public class AccountsController {
     
+    private Connection con;
+    private Statement stat;
+    private ResultSet rs;
+    private PreparedStatement pstat;
     
-    public AccountsController(){
+  
     
+    
+    public AccountsController() throws SQLException {
+     this.con = dbContext.connect();
     }
+    
     String message="";
    
     public void login(login user) {
         if(isValid(user)){
             if(isAuthentic(user)){
-                
                 user.setMessage("SUCCESS");
-//                Authorize(user,request,response);
+            
             }
             else{
            user.setMessage("incorrect");
@@ -27,10 +41,11 @@ public class AccountsController {
             }   
         }
         else{ 
-       user.setMessage("Please enter all fields");
+        user.setMessage("Please enter all fields");
         
         }
          
+       
 
     }
     
@@ -39,28 +54,86 @@ public class AccountsController {
     }
     
     private boolean isAuthentic(login user){
-        return(user.getUsername().equals("moin")&& user.getPassword().equals("123"));
+        try{ 
+       String sql="select * from users where username = '"+user.getUsername()+"' and password='"+user.getPassword()+"'";
+       stat=con.createStatement();
+       rs=stat.executeQuery(sql);
+       
+       if(rs.next()){
+           return true;
+       }
+       else{
+           user.setMessage("Incorrect credentials");
+           return false;
+       }
+       
+       }
+       catch (SQLException ex){
+       user.setMessage(ex.getMessage());
+       return false;
+       }
 
     }
-//    private void Authorize(login user, HttpServletRequest request, HttpServletResponse response) throws IOException{
-//        if(user.getRememberMe().equals("true")){
-//             if (request.getParameter("Remember") != null) 
-//                {
-//                    Cookie cookie = new Cookie("AuthCookie", user.getUsername());
-//                    cookie.setMaxAge(60 * 60 * 24); 
-//                   cookie.setHttpOnly(true); 
-//                    response.addCookie(cookie); 
-//                }
-//             else{
-//          
-//             }
-//        
-//          
-//        }
-//         
-//        else{
-//          
-//        }
-//        
-//    }
+    
+    public void SaveUser(Users user) {
+    
+        if (checkuser(user)){
+        
+        
+        if(register(user)){
+            user.setMessage("User Registered");
+        }
+        else{
+            user.setMessage("User Coudn't be Registered");
+        }
+        }
+        else{
+            user.setMessage("User with this email exists");
+        }
+    }
+
+    public boolean register(Users user) {
+    try {
+        String sql = "INSERT INTO users (first_name, last_name, username, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)";
+        pstat = con.prepareStatement(sql);
+
+        pstat.setString(1, user.getFName());
+        pstat.setString(2, user.getLName());
+        pstat.setString(3, user.getUName());
+        pstat.setString(4, user.getPassword());
+        pstat.setString(5, user.getEmail());
+        pstat.setString(6, user.getPhone());
+
+        int rows = pstat.executeUpdate();
+        return rows > 0;
+
+    } catch (SQLException ex) {
+        user.setMessage("Error: " + ex.getMessage());
+        return false;
+    }
+}
+     public boolean checkuser(Users user){
+     try{ 
+       String sql="select * from users where email = '"+user.getEmail()+"' ";
+       stat=con.createStatement();
+       rs=stat.executeQuery(sql);
+       
+       if(rs.next()){
+           return false;
+       }
+       else{
+           user.setMessage("Incorrect credentials");
+           return true;
+       }
+       
+       }
+       catch (SQLException ex){
+       user.setMessage(ex.getMessage());
+       return false;
+       }
+        
+    
+    }
+
+    
 }
